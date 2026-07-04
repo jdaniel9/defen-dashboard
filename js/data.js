@@ -1,11 +1,11 @@
-/ ================================================================
+// ================================================================
 // data.js — Carga de datos desde API + datos locales de respaldo
 // ================================================================
-
+ 
 async function cargarDatos() {
     mostrarCargando(true);
     let cargadoDesdeAPI = false;
-
+ 
     if (APPS_SCRIPT_URL !== "PEGA_AQUI_TU_URL") {
         try {
             const res  = await fetch(APPS_SCRIPT_URL, { redirect: 'follow' });
@@ -17,31 +17,31 @@ async function cargarDatos() {
             console.warn("⚠️ Usando datos locales:", e.message);
         }
     }
-
+ 
     if (!cargadoDesdeAPI) {
         data              = DATOS_LOCALES_data;
         detalleProvincias = DATOS_LOCALES_detalle;
         armamento         = { rastrillo: 289, perdida: 1, confiscada: 1, global: 414 };
         puestosData       = PUESTOS_LOCALES;
     }
-
+ 
     mostrarCargando(false);
     init();
     // Activar chips "Todos" por defecto
     document.querySelectorAll('.chip[data-val="todos"]').forEach(c => c.classList.add('active-blue'));
 }
-
+ 
 function mostrarCargando(activo) {
     const el = document.getElementById('loading-overlay');
     if (el) el.style.display = activo ? 'flex' : 'none';
 }
-
+ 
 // Procesa JSON de la API → llena data, detalleProvincias, armamento y puestosData
 function procesarDatosAPI(json) {
     data              = {};
     detalleProvincias = {};
     puestosData       = {};
-
+ 
     // ── Armamento ──
     if (json.__armamento__) {
         const a = json.__armamento__;
@@ -54,19 +54,19 @@ function procesarDatosAPI(json) {
         };
         delete json.__armamento__;
     }
-
+ 
     // ── Armamento detalle ──
     if (json.__armamento_detalle__) {
         armamentoDetalle = json.__armamento_detalle__;
         delete json.__armamento_detalle__;
     }
-
+ 
     // ── Asistencia: quién está de turno HOY por puesto ──
     if (json.__asistencia__) {
         asistenciaHoy = json.__asistencia__;
         delete json.__asistencia__;
     }
-
+ 
     // ── Puestos: indexar por provincia → proyecto → array ──
     if (json.__puestos__) {
         json.__puestos__.forEach(p => {
@@ -75,11 +75,11 @@ function procesarDatosAPI(json) {
             if (!prov || !proy) return;
             if (!puestosData[prov]) puestosData[prov] = {};
             if (!puestosData[prov][proy]) puestosData[prov][proy] = [];
-
+ 
             const nombrePuesto = p.nombre_puesto || p.nombre || '';
             // Buscar info de asistencia para este puesto (por nombre, case-insensitive)
             const asistInfo = asistenciaHoy[nombrePuesto.toUpperCase().trim()] || null;
-
+ 
             puestosData[prov][proy].push({
                 nombre:     nombrePuesto,
                 lat:        Number(p.lat)   || 0,
@@ -101,7 +101,7 @@ function procesarDatosAPI(json) {
         });
         delete json.__puestos__;
     }
-
+ 
     // ── Provincias ──
     Object.keys(json).forEach(nombre => {
         const p = json[nombre];
@@ -127,7 +127,7 @@ function procesarDatosAPI(json) {
         };
     });
 }
-
+ 
 // =====================================================================
 // DATOS LOCALES DE RESPALDO
 // =====================================================================
@@ -144,7 +144,7 @@ const DATOS_LOCALES_data = {
     "PICHINCHA":      { x:53, y:28, tipo:"SUCURSAL", estado:"EN TRÁMITE",               proyectos:6,  puestos:58,  armas:34, guardias:153, cat:'active' },
     "SANTO DOMINGO":  { x:46, y:32, tipo:"AGENCIA",  estado:"VIGENTE",                   proyectos:1,  puestos:11,  armas:1,  guardias:21,  cat:'active' },
     "TUNGURAHUA":     { x:55, y:44, tipo:"AGENCIA",  estado:"VIGENTE",                   proyectos:1,  puestos:4,   armas:4,  guardias:5,   cat:'active' },
-
+ 
     // SIN PROYECTOS (con trámite registrado)
     "BOLIVAR":          { x:44, y:53, tipo:"AGENCIA", estado:"SIN PROYECTOS", proyectos:0, puestos:0, armas:0, guardias:0, cat:'agency_only' },
     "CAÑAR":            { x:46, y:62, tipo:"AGENCIA", estado:"SIN PROYECTOS", proyectos:0, puestos:0, armas:0, guardias:0, cat:'agency_only' },
@@ -160,7 +160,7 @@ const DATOS_LOCALES_data = {
     "SUCUMBIOS":        { x:83, y:17, tipo:"AGENCIA", estado:"SIN PROYECTOS", proyectos:0, puestos:0, armas:0, guardias:0, cat:'agency_only' },
     "ZAMORA CHINCHIPE": { x:48, y:88, tipo:"AGENCIA", estado:"SIN PROYECTOS", proyectos:0, puestos:0, armas:0, guardias:0, cat:'agency_only' }
 };
-
+ 
 const DATOS_LOCALES_detalle = {
     // ── PROVINCIAS CON PROYECTOS ACTIVOS ──────────────────────────────
     "AZUAY": {
@@ -282,7 +282,7 @@ const DATOS_LOCALES_detalle = {
             { nombre: "PARROQUIAS URBANAS", guardias: 5, armas: 4, puestos: 4, fin: "2026-06-05", supervisores: ["Wilson Chávez"] }
         ]
     },
-
+ 
     // ── PROVINCIAS SIN PROYECTOS (solo trámite) ───────────────────────
     "BOLIVAR": {
         tramite:        "TRA-0001318517",
