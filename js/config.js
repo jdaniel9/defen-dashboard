@@ -37,3 +37,41 @@ let mostrandoTodos  = false;
 let provinciaActual = null;
 let puestosActuales = [];
 let filtroActivo    = 'todos';
+
+// Datos locales de respaldo para puestos (con coordenadas reales de Pichincha)
+const PUESTOS_LOCALES = {
+    "PICHINCHA": {
+        "MINISTERIO TRABAJO": [
+            {
+                nombre:     "Edificio Géminis",
+                lat:        -0.21182498265414754,
+                lng:        -78.5000201921123,
+                tipo:       "8 Horas",
+                guardia:    "Juan Celi",
+                armado:     true,
+                arma:       "Arma Letal · Serie: XXXX XXXX",
+                radio:      true,
+                radio_info: "1 TH510 · Serie: XXX XXX",
+                turno:      "Diurno",
+                dias:       "Lunes / Viernes",
+                obs:        "",
+                enTurnoHoy: null, tipoTurnoHoy: null, rotacionCompleta: null
+            },
+            {
+                nombre:     "Edificio Torre Azul",
+                lat:        -0.18489594537669302,
+                lng:        -78.48118202942977,
+                tipo:       "8 Horas",
+                guardia:    "Julianna Márquez",
+                armado:     false,
+                arma:       null,
+                radio:      true,
+                radio_info: "1 TH510 · Serie: XXX XXX",
+                turno:      "Diurno",
+                dias:       "Lunes / Viernes",
+                obs:        "",
+                enTurnoHoy: null, tipoTurnoHoy: null, rotacionCompleta: null
+            }
+        ]
+    }
+};
