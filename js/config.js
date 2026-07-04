@@ -1,15 +1,15 @@
 // ================================================================
 // config.js — Configuración global, estado de la aplicación
 // ================================================================
-
+ 
 // ► CONFIGURACIÓN — pega aquí tu URL de Apps Script
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsQ-GMfOMFIq9T13cjrFY7nCtEa-YGVA1R6-aF2rgKkTOWo-TnP9mMGZlivjJKGS8/exec";
-
+ 
 // Rutas de imágenes (archivos locales en /img/)
 const IMG_MAPA  = 'img/mapa.png';
 const IMG_FONDO = 'img/fondo.png';
 const IMG_LOGO  = 'img/logo.png';
-
+ 
 // ── Estado global de la aplicación ──────────────────────────────
 let data              = {};
 let detalleProvincias = {};
@@ -17,7 +17,7 @@ let armamento         = { global:414, enCampo:0, rastrillo:0, perdida:1, confisc
 let armamentoDetalle  = [];
 let asistenciaHoy     = {};
 let puestosData       = {};
-
+ 
 // ── Estado del panel de filtros globales ────────────────────────
 const filtrosActivos = {
     jornada:  'todos',
@@ -27,7 +27,7 @@ const filtrosActivos = {
     contrato: 'todos',
     cat:      'todos'
 };
-
+ 
 // ── Estado del mapa de provincia (Leaflet) ───────────────────────
 let provMap         = null;
 let marcadoresMapa  = [];
@@ -37,7 +37,7 @@ let mostrandoTodos  = false;
 let provinciaActual = null;
 let puestosActuales = [];
 let filtroActivo    = 'todos';
-
+ 
 // Datos locales de respaldo para puestos (con coordenadas reales de Pichincha)
 const PUESTOS_LOCALES = {
     "PICHINCHA": {
@@ -75,3 +75,4 @@ const PUESTOS_LOCALES = {
         ]
     }
 };
+ 
